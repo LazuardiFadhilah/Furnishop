@@ -79,6 +79,98 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget promoBar(context) {
+    return Stack(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            image: const DecorationImage(
+              image: AssetImage('assets/promo_img.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(12),
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: blackColor.withOpacity(0.3),
+          ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: constraints.maxHeight * 0.15,
+                    width: constraints.maxWidth * 0.3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: blackColor,
+                    ),
+                    child: Text(
+                      'Room Package',
+                      style: buttonTextStyle.copyWith(
+                        fontSize: 10,
+                        fontWeight: regular,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: constraints.maxHeight * 0.15,
+                  ),
+                  Text(
+                    'New',
+                    style: descTextStyle.copyWith(
+                      fontSize: 12,
+                      fontWeight: semiBold,
+                      color: orangeColor,
+                    ),
+                  ),
+                  Text(
+                    'Sale Up \nTo 70% Off',
+                    textAlign: TextAlign.left,
+                    style: buttonTextStyle.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: constraints.maxWidth * 0.3,
+                    height: constraints.maxHeight * 0.2,
+                    decoration: BoxDecoration(
+                      color: orangeColor,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Buy Now',
+                          style: buttonTextStyle,
+                        ),
+                        const Icon(
+                          Icons.navigate_next_rounded,
+                          color: whiteColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +187,22 @@ class HomeScreen extends StatelessWidget {
               height: 24,
             ),
             searchBar(context),
+            const SizedBox(
+              height: 24,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  promoBar(context),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  promoBar(context),
+                ],
+              ),
+            )
           ],
         ),
       ),
