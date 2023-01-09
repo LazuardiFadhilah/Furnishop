@@ -42,3 +42,9 @@ TextStyle buttonTextStyle = GoogleFonts.poppins(
   fontSize: 12,
   fontWeight: semiBold,
 );
+
+TextStyle pagingTextStyle = GoogleFonts.poppins(
+  color: orangeColor,
+  fontSize: 12,
+  fontWeight: medium,
+);

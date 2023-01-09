@@ -1,6 +1,6 @@
 import '../models/categories.dart';
 
-List<Categories> dummyData = [
+List<Categories> categoriesData = [
   Categories(id: 'c1', title: 'chair', image: 'assets/chair_icon.png'),
   Categories(id: 'c2', title: 'tabble', image: 'assets/tabble_icon.png'),
   Categories(id: 'c3', title: 'cupboard', image: 'assets/cupboard_icon.png'),

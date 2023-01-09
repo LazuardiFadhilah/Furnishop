@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../styles.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -177,33 +178,65 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: bgColor,
       body: SafeArea(
         top: true,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: headerWidget(),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            searchBar(context),
-            const SizedBox(
-              height: 24,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                children: [
-                  promoBar(context),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  promoBar(context),
-                ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: headerWidget(),
               ),
-            )
-          ],
+              const SizedBox(
+                height: 24,
+              ),
+              searchBar(context),
+              const SizedBox(
+                height: 24,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  children: [
+                    promoBar(context),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    promoBar(context),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'New Arrival',
+                      style: titleTextStyle.copyWith(
+                        fontSize: 16,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'See all',
+                        style: pagingTextStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+            ],
+          ),
         ),
       ),
     );
