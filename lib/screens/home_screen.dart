@@ -1,9 +1,18 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:furnishop/widgets/arrival_items.dart';
 
 import '../styles.dart';
+import '../datas/items_data.dart';
+import '../datas/categories_data.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  var catData = categoriesData.where(
+    (element) => element.id == itemsData.map((e) => e.catId).toString(),
+  );
+
+  HomeScreen({super.key});
 
   Widget headerWidget() {
     return Row(
@@ -174,6 +183,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_print
+    print(catData);
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
@@ -234,6 +245,28 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(
                 height: 12,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(
+                  left: 24,
+                  right: 12,
+                ),
+                child: Row(
+                  children: itemsData
+                      .map(
+                        (itmData) => ArrivalItems(
+                          itmData.id,
+                          itmData.title,
+                          itmData.desc,
+                          itmData.price,
+                          catData.map((e) => e.title).toString(),
+                          itmData.img,
+                          itmData.isFavorite,
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ],
           ),
