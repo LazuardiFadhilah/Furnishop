@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:furnishop/currency_format.dart';
 import 'package:furnishop/datas/categories_data.dart';
 import 'package:furnishop/styles.dart';
-// ignore: unused_import
-import '../screens/home_screen.dart';
 
 // ignore: must_be_immutable
 class ArrivalItems extends StatefulWidget {
@@ -23,6 +22,8 @@ class ArrivalItems extends StatefulWidget {
 }
 
 class _ArrivalItemsState extends State<ArrivalItems> {
+  int decimalDigit = 0;
+
   @override
   Widget build(BuildContext context) {
     final catTitle =
@@ -54,6 +55,7 @@ class _ArrivalItemsState extends State<ArrivalItems> {
               builder: (BuildContext context, BoxConstraints constraints) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Stack(
                       alignment: Alignment.topLeft,
@@ -96,6 +98,36 @@ class _ArrivalItemsState extends State<ArrivalItems> {
                     Text(
                       catTitle.title,
                       style: descTextStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          CurrencyFormat.convertToIdr(
+                            widget.price,
+                            decimalDigit,
+                          ),
+                          style: titleTextStyle.copyWith(
+                            fontSize: 16,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: constraints.maxHeight * 0.1,
+                            height: constraints.maxHeight * 0.1,
+                            decoration: BoxDecoration(
+                              color: orangeColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              size: 20,
+                              color: whiteColor,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 );

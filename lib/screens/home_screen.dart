@@ -1,13 +1,24 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:furnishop/datas/categories_data.dart';
 import 'package:furnishop/widgets/arrival_items.dart';
+import 'package:furnishop/widgets/categories_card.dart';
 
-import '../styles.dart';
 import '../datas/items_data.dart';
+import '../styles.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
+    super.key,
+  });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String selectedCategory = '';
 
   Widget headerWidget() {
     return Row(
@@ -176,6 +187,86 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget arrivalCard() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.only(
+        left: 24,
+        right: 12,
+      ),
+      child: Row(
+        children: itemsData
+            .map(
+              (itmData) => ArrivalItems(
+                itmData.id,
+                itmData.title,
+                itmData.desc,
+                itmData.price,
+                itmData.catId,
+                itmData.img,
+                itmData.isFavorite,
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  Widget categoriesCard(context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.only(
+        left: 24,
+        right: 12,
+      ),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedCategory = '';
+              });
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height * 0.1,
+              width: MediaQuery.of(context).size.height * 0.1,
+              decoration: BoxDecoration(
+                color: selectedCategory == '' ? orangeColor : whiteColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                'All',
+                style: titleTextStyle.copyWith(
+                  color: selectedCategory == '' ? whiteColor : blackColor,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 12,
+          ),
+          ...categoriesData
+              .map(
+                (ctgData) => GestureDetector(
+                  onTap: () => setState(() {
+                    selectedCategory = ctgData.id;
+                    // ignore: avoid_print
+                    print(selectedCategory);
+                  }),
+                  child: CategoryCard(
+                    id: ctgData.id,
+                    image: ctgData.image,
+                    selectedCategory: selectedCategory,
+                  ),
+                ),
+              )
+              .toList(),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -197,6 +288,8 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
+
+              // PromoBar
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -210,9 +303,13 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              // end of PromoBar
+
               const SizedBox(
                 height: 24,
               ),
+
+              // New Arrival
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
@@ -239,28 +336,35 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 12,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.only(
-                  left: 24,
-                  right: 12,
-                ),
+              arrivalCard(),
+              const SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
-                  children: itemsData
-                      .map(
-                        (itmData) => ArrivalItems(
-                          itmData.id,
-                          itmData.title,
-                          itmData.desc,
-                          itmData.price,
-                          itmData.catId,
-                          itmData.img,
-                          itmData.isFavorite,
-                        ),
-                      )
-                      .toList(),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'By Categories',
+                      style: titleTextStyle.copyWith(
+                        fontSize: 16,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'See all',
+                        style: pagingTextStyle,
+                      ),
+                    ),
+                  ],
                 ),
               ),
+              const SizedBox(
+                height: 12,
+              ),
+              categoriesCard(context),
             ],
           ),
         ),
