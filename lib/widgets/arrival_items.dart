@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:furnishop/datas/categories_data.dart';
 import 'package:furnishop/styles.dart';
 // ignore: unused_import
 import '../screens/home_screen.dart';
 
 // ignore: must_be_immutable
-class ArrivalItems extends StatelessWidget {
+class ArrivalItems extends StatefulWidget {
   final String id;
   final String title;
   final String desc;
@@ -18,7 +19,15 @@ class ArrivalItems extends StatelessWidget {
       {super.key});
 
   @override
+  State<ArrivalItems> createState() => _ArrivalItemsState();
+}
+
+class _ArrivalItemsState extends State<ArrivalItems> {
+  @override
   Widget build(BuildContext context) {
+    final catTitle =
+        categoriesData.firstWhere((element) => element.id == widget.catId);
+
     return Row(
       children: [
         Container(
@@ -29,50 +38,69 @@ class ArrivalItems extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             color: whiteColor,
           ),
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    alignment: Alignment.topLeft,
-                    children: [
-                      Container(
-                        height: constraints.maxHeight * 0.7,
-                        width: constraints.maxWidth,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            image: AssetImage(img[0]),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 7, top: 5),
-                        width: constraints.maxWidth * 0.15,
-                        height: constraints.maxHeight * 0.15,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: isFavorite == true ? redColor : greyColor,
-                          image: const DecorationImage(
-                            image: AssetImage('assets/love_icon.png'),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: constraints.maxHeight * 0.01,
-                  ),
-                  Text(
-                    title,
-                    style: titleTextStyle,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+          child: GestureDetector(
+            onDoubleTap: (() {
+              setState(
+                () {
+                  if (widget.isFavorite == false) {
+                    widget.isFavorite = true;
+                  } else {
+                    widget.isFavorite = false;
+                  }
+                },
               );
-            },
+            }),
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      alignment: Alignment.topLeft,
+                      children: [
+                        Container(
+                          height: constraints.maxHeight * 0.7,
+                          width: constraints.maxWidth,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              image: AssetImage(widget.img[0]),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 7, top: 5),
+                          width: constraints.maxWidth * 0.15,
+                          height: constraints.maxHeight * 0.15,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: widget.isFavorite == true
+                                ? redColor
+                                : greyColor,
+                            image: const DecorationImage(
+                              image: AssetImage('assets/love_icon.png'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: constraints.maxHeight * 0.01,
+                    ),
+                    Text(
+                      widget.title,
+                      style: titleTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      catTitle.title,
+                      style: descTextStyle,
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
         const SizedBox(

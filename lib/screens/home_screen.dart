@@ -5,14 +5,9 @@ import 'package:furnishop/widgets/arrival_items.dart';
 
 import '../styles.dart';
 import '../datas/items_data.dart';
-import '../datas/categories_data.dart';
 
 class HomeScreen extends StatelessWidget {
-  var catData = categoriesData.where(
-    (element) => element.id == itemsData.map((e) => e.catId).toString(),
-  );
-
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   Widget headerWidget() {
     return Row(
@@ -183,8 +178,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: avoid_print
-    print(catData);
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
@@ -260,7 +253,7 @@ class HomeScreen extends StatelessWidget {
                           itmData.title,
                           itmData.desc,
                           itmData.price,
-                          catData.map((e) => e.title).toString(),
+                          itmData.catId,
                           itmData.img,
                           itmData.isFavorite,
                         ),
