@@ -5,6 +5,8 @@ import 'package:furnishop/styles.dart';
 
 // ignore: must_be_immutable
 class ArrivalItems extends StatefulWidget {
+  final VoidCallback onFavoriteSelected;
+
   final String id;
   final String title;
   final String desc;
@@ -13,9 +15,17 @@ class ArrivalItems extends StatefulWidget {
   final List img;
   bool isFavorite = false;
 
-  ArrivalItems(this.id, this.title, this.desc, this.price, this.catId, this.img,
-      this.isFavorite,
-      {super.key});
+  ArrivalItems(
+    this.id,
+    this.title,
+    this.desc,
+    this.price,
+    this.catId,
+    this.img,
+    this.isFavorite, {
+    super.key,
+    required this.onFavoriteSelected,
+  });
 
   @override
   State<ArrivalItems> createState() => _ArrivalItemsState();
@@ -41,15 +51,7 @@ class _ArrivalItemsState extends State<ArrivalItems> {
           ),
           child: GestureDetector(
             onDoubleTap: (() {
-              setState(
-                () {
-                  if (widget.isFavorite == false) {
-                    widget.isFavorite = true;
-                  } else {
-                    widget.isFavorite = false;
-                  }
-                },
-              );
+              widget.onFavoriteSelected();
             }),
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {

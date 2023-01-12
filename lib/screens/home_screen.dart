@@ -7,6 +7,7 @@ import 'package:furnishop/widgets/categories_card.dart';
 
 import '../datas/items_data.dart';
 import '../styles.dart';
+import '../widgets/category_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -198,6 +199,19 @@ class _HomeScreenState extends State<HomeScreen> {
         children: itemsData
             .map(
               (itmData) => ArrivalItems(
+                onFavoriteSelected: () {
+                  setState(
+                    () {
+                      if (itmData.isFavorite == false) {
+                        itmData.isFavorite = true;
+                      } else {
+                        itmData.isFavorite = false;
+                      }
+                      // ignore: avoid_print
+                      print(itmData.isFavorite);
+                    },
+                  );
+                },
                 itmData.id,
                 itmData.title,
                 itmData.desc,
@@ -263,6 +277,31 @@ class _HomeScreenState extends State<HomeScreen> {
               )
               .toList(),
         ],
+      ),
+    );
+  }
+
+  Widget categoryItemCard() {
+    var filterData = itemsData.where((e) => e.catId == selectedCategory);
+    var allData = selectedCategory == '' ? itemsData : filterData;
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 24,
+      ),
+      child: Column(
+        children: allData
+            .map(
+              (fltData) => CategoryItemCard(
+                id: fltData.id,
+                catId: fltData.catId,
+                desc: fltData.desc,
+                img: fltData.img,
+                isFavorite: fltData.isFavorite,
+                price: fltData.price,
+                title: fltData.title,
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -365,6 +404,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 12,
               ),
               categoriesCard(context),
+              const SizedBox(
+                height: 12,
+              ),
+              categoryItemCard(),
             ],
           ),
         ),
