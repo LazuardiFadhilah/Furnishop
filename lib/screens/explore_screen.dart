@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+
+class ExploreScreen extends StatefulWidget {
+  static const routeName = '/explore-screen';
+  const ExploreScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ExploreScreen> createState() => _ExploreScreenState();
+}
+
+class _ExploreScreenState extends State<ExploreScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Explore Screen'),
+      ),
+    );
+  }
+}

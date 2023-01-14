@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:furnishop/datas/categories_data.dart';
+import 'package:furnishop/main_home_page.dart';
 import 'package:furnishop/widgets/arrival_items.dart';
 import 'package:furnishop/widgets/categories_card.dart';
 
@@ -285,8 +286,9 @@ class _HomeScreenState extends State<HomeScreen> {
     var filterData = itemsData.where((e) => e.catId == selectedCategory);
     var allData = selectedCategory == '' ? itemsData : filterData;
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
+      padding: const EdgeInsets.only(
+        left: 24,
+        right: 24,
       ),
       child: Column(
         children: allData
@@ -312,103 +314,114 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: bgColor,
       body: SafeArea(
         top: true,
+        bottom: false,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: headerWidget(),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              searchBar(context),
-              const SizedBox(
-                height: 24,
-              ),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 124),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: headerWidget(),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                searchBar(context),
+                const SizedBox(
+                  height: 24,
+                ),
 
-              // PromoBar
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  children: [
-                    promoBar(context),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    promoBar(context),
-                  ],
+                // PromoBar
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    children: [
+                      promoBar(context),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      promoBar(context),
+                    ],
+                  ),
                 ),
-              ),
-              // end of PromoBar
+                // end of PromoBar
 
-              const SizedBox(
-                height: 24,
-              ),
+                const SizedBox(
+                  height: 24,
+                ),
 
-              // New Arrival
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
+                // New Arrival
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'New Arrival',
+                        style: titleTextStyle.copyWith(
+                          fontSize: 16,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            MainHomePage.pageIndex = 1;
+                            // ignore: avoid_print
+                            print(MainHomePage.pageIndex);
+                          });
+                          Navigator.pushNamed(context, '/');
+                        },
+                        child: Text(
+                          'See all',
+                          style: pagingTextStyle,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'New Arrival',
-                      style: titleTextStyle.copyWith(
-                        fontSize: 16,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        'See all',
-                        style: pagingTextStyle,
-                      ),
-                    ),
-                  ],
+                const SizedBox(
+                  height: 12,
                 ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              arrivalCard(),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'By Categories',
-                      style: titleTextStyle.copyWith(
-                        fontSize: 16,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        'See all',
-                        style: pagingTextStyle,
-                      ),
-                    ),
-                  ],
+                arrivalCard(),
+                const SizedBox(
+                  height: 30,
                 ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              categoriesCard(context),
-              const SizedBox(
-                height: 12,
-              ),
-              categoryItemCard(),
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'By Categories',
+                        style: titleTextStyle.copyWith(
+                          fontSize: 16,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'See all',
+                          style: pagingTextStyle,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                categoriesCard(context),
+                const SizedBox(
+                  height: 12,
+                ),
+                categoryItemCard(),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:furnishop/screens/home_screen.dart';
+import 'package:furnishop/main_home_page.dart';
+import 'package:furnishop/screens/explore_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/': (context) => const MainHomePage(),
+        ExploreScreen.routeName: (context) => const ExploreScreen(),
       },
     );
   }
