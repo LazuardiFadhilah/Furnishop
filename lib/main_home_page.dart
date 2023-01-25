@@ -29,51 +29,54 @@ class _MainHomePageState extends State<MainHomePage> {
             alignment: Alignment.bottomCenter,
             child: SafeArea(
               bottom: true,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  selectedItemColor: whiteColor,
-                  unselectedItemColor: greyColor,
-                  showSelectedLabels: true,
-                  showUnselectedLabels: false,
-                  backgroundColor: blackColor,
-                  currentIndex: MainHomePage.pageIndex,
-                  onTap: (int index) {
-                    setState(() {
-                      MainHomePage.pageIndex = index;
-                    });
-                    // ignore: avoid_print
-                    print(MainHomePage.pageIndex);
-                  },
-                  items: const [
-                    BottomNavigationBarItem(
-                      label: 'Home',
-                      icon: SizedBox(
-                        child: Icon(
-                          Icons.home_rounded,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.08,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    selectedItemColor: whiteColor,
+                    unselectedItemColor: greyColor,
+                    showSelectedLabels: true,
+                    showUnselectedLabels: false,
+                    backgroundColor: blackColor,
+                    currentIndex: MainHomePage.pageIndex,
+                    onTap: (int index) {
+                      setState(() {
+                        MainHomePage.pageIndex = index;
+                      });
+                      // ignore: avoid_print
+                      print(MainHomePage.pageIndex);
+                    },
+                    items: const [
+                      BottomNavigationBarItem(
+                        label: 'Home',
+                        icon: SizedBox(
+                          child: Icon(
+                            Icons.home_rounded,
+                          ),
                         ),
                       ),
-                    ),
-                    BottomNavigationBarItem(
-                      label: 'Explore',
-                      icon: Icon(
-                        Icons.view_module_rounded,
+                      BottomNavigationBarItem(
+                        label: 'Explore',
+                        icon: Icon(
+                          Icons.view_module_rounded,
+                        ),
                       ),
-                    ),
-                    BottomNavigationBarItem(
-                      label: 'Favorite',
-                      icon: Icon(
-                        Icons.favorite_border,
+                      BottomNavigationBarItem(
+                        label: 'Favorite',
+                        icon: Icon(
+                          Icons.favorite_border,
+                        ),
                       ),
-                    ),
-                    BottomNavigationBarItem(
-                      label: 'Profile',
-                      icon: Icon(
-                        Icons.person,
+                      BottomNavigationBarItem(
+                        label: 'Profile',
+                        icon: Icon(
+                          Icons.person,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

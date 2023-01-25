@@ -374,7 +374,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             // ignore: avoid_print
                             print(MainHomePage.pageIndex);
                           });
-                          Navigator.pushNamed(context, '/');
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/', (Route route) => false);
                         },
                         child: Text(
                           'See all',
