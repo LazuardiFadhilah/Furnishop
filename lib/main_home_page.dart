@@ -37,7 +37,7 @@ class _MainHomePageState extends State<MainHomePage> {
                     type: BottomNavigationBarType.fixed,
                     selectedItemColor: whiteColor,
                     unselectedItemColor: greyColor,
-                    showSelectedLabels: true,
+                    showSelectedLabels: false,
                     showUnselectedLabels: false,
                     backgroundColor: blackColor,
                     currentIndex: MainHomePage.pageIndex,
