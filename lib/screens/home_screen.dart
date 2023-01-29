@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:furnishop/datas/categories_data.dart';
-import 'package:furnishop/main_home_page.dart';
 import 'package:furnishop/widgets/arrival_items.dart';
 import 'package:furnishop/widgets/categories_card.dart';
 
@@ -235,49 +234,22 @@ class _HomeScreenState extends State<HomeScreen> {
         right: 12,
       ),
       child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCategory = '';
-              });
-            },
-            child: Container(
-              alignment: Alignment.center,
-              height: MediaQuery.of(context).size.height * 0.1,
-              width: MediaQuery.of(context).size.height * 0.1,
-              decoration: BoxDecoration(
-                color: selectedCategory == '' ? orangeColor : whiteColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                'All',
-                style: titleTextStyle.copyWith(
-                  color: selectedCategory == '' ? whiteColor : blackColor,
+        children: categoriesData
+            .map(
+              (ctgData) => GestureDetector(
+                onTap: () => setState(() {
+                  selectedCategory = ctgData.id;
+                  // ignore: avoid_print
+                  print(selectedCategory);
+                }),
+                child: CategoryCard(
+                  id: ctgData.id,
+                  image: ctgData.image,
+                  selectedCategory: selectedCategory,
                 ),
               ),
-            ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          ...categoriesData
-              .map(
-                (ctgData) => GestureDetector(
-                  onTap: () => setState(() {
-                    selectedCategory = ctgData.id;
-                    // ignore: avoid_print
-                    print(selectedCategory);
-                  }),
-                  child: CategoryCard(
-                    id: ctgData.id,
-                    image: ctgData.image,
-                    selectedCategory: selectedCategory,
-                  ),
-                ),
-              )
-              .toList(),
-        ],
+            )
+            .toList(),
       ),
     );
   }
@@ -367,21 +339,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 16,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            MainHomePage.pageIndex = 1;
-                            // ignore: avoid_print
-                            print(MainHomePage.pageIndex);
-                          });
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/', (Route route) => false);
-                        },
-                        child: Text(
-                          'See all',
-                          style: pagingTextStyle,
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -401,13 +358,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         'By Categories',
                         style: titleTextStyle.copyWith(
                           fontSize: 16,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          'See all',
-                          style: pagingTextStyle,
                         ),
                       ),
                     ],
