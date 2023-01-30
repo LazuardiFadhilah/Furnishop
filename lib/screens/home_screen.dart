@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:furnishop/datas/categories_data.dart';
+import 'package:furnishop/main_home_page.dart';
 import 'package:furnishop/widgets/arrival_items.dart';
 import 'package:furnishop/widgets/categories_card.dart';
 
@@ -53,48 +54,48 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget searchBar(context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      height: 52,
-      width: MediaQuery.of(context).size.width - 48,
-      decoration: BoxDecoration(
-        color: whiteColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset('assets/search_icon.png'),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration.collapsed(
-                hintText: 'Search Product',
-                hintStyle: descTextStyle.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              style: descTextStyle.copyWith(
-                color: blackColor,
-                fontSize: 14,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 2,
-          ),
-          Image.asset(
-            'assets/mic_icon.png',
-            height: 24,
-            width: 24,
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget searchBar(context) {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 12),
+  //     height: 52,
+  //     width: MediaQuery.of(context).size.width - 48,
+  //     decoration: BoxDecoration(
+  //       color: whiteColor,
+  //       borderRadius: BorderRadius.circular(12),
+  //     ),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Image.asset('assets/search_icon.png'),
+  //         const SizedBox(
+  //           width: 10,
+  //         ),
+  //         Expanded(
+  //           child: TextField(
+  //             decoration: InputDecoration.collapsed(
+  //               hintText: 'Search Product',
+  //               hintStyle: descTextStyle.copyWith(
+  //                 fontSize: 14,
+  //               ),
+  //             ),
+  //             style: descTextStyle.copyWith(
+  //               color: blackColor,
+  //               fontSize: 14,
+  //             ),
+  //           ),
+  //         ),
+  //         const SizedBox(
+  //           width: 2,
+  //         ),
+  //         Image.asset(
+  //           'assets/mic_icon.png',
+  //           height: 24,
+  //           width: 24,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget promoBar(context) {
     return Stack(
@@ -207,8 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       } else {
                         itmData.isFavorite = false;
                       }
-                      // ignore: avoid_print
-                      print(itmData.isFavorite);
                     },
                   );
                 },
@@ -227,6 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget categoriesCard(context) {
+    var subCatData = categoriesData.sublist(0, 4);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.only(
@@ -234,22 +234,22 @@ class _HomeScreenState extends State<HomeScreen> {
         right: 12,
       ),
       child: Row(
-        children: categoriesData
-            .map(
-              (ctgData) => GestureDetector(
-                onTap: () => setState(() {
-                  selectedCategory = ctgData.id;
-                  // ignore: avoid_print
-                  print(selectedCategory);
-                }),
-                child: CategoryCard(
-                  id: ctgData.id,
-                  image: ctgData.image,
-                  selectedCategory: selectedCategory,
+        children: [
+          ...subCatData
+              .map(
+                (ctgData) => GestureDetector(
+                  onTap: () => setState(() {
+                    selectedCategory = ctgData.id;
+                  }),
+                  child: CategoryCard(
+                    id: ctgData.id,
+                    image: ctgData.image,
+                    selectedCategory: selectedCategory,
+                  ),
                 ),
-              ),
-            )
-            .toList(),
+              )
+              .toList(),
+        ],
       ),
     );
   }
@@ -300,10 +300,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                searchBar(context),
-                const SizedBox(
-                  height: 24,
-                ),
+                // searchBar(context),
+                // const SizedBox(
+                //   height: 24,
+                // ),
 
                 // PromoBar
                 SingleChildScrollView(
@@ -358,6 +358,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         'By Categories',
                         style: titleTextStyle.copyWith(
                           fontSize: 16,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/', (Route route) => false);
+                          setState(() {
+                            MainHomePage.pageIndex = 1;
+                          });
+                        },
+                        child: Text(
+                          'See all',
+                          style: pagingTextStyle,
                         ),
                       ),
                     ],
