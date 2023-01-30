@@ -18,8 +18,31 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   String selectCat = '';
-
   int catRange = 4;
+
+  List _foundUser = [];
+
+  @override
+  void initState() {
+    _foundUser = itemsData;
+    super.initState();
+  }
+
+  void _runFilter(String enteredKeyword) {
+    List result = [];
+    if (enteredKeyword.isEmpty) {
+      result = itemsData;
+    } else {
+      result = itemsData
+          .where(
+              (element) => element.title.toLowerCase().contains(enteredKeyword))
+          .toList();
+    }
+
+    setState(() {
+      _foundUser = result;
+    });
+  }
 
   Widget headerExplore() {
     return Container(
@@ -66,6 +89,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
           ),
           Expanded(
             child: TextField(
+              onChanged: (value) {
+                _runFilter(value);
+              },
               decoration: InputDecoration.collapsed(
                 hintText: 'Search Product',
                 hintStyle: descTextStyle.copyWith(
@@ -158,8 +184,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
   }
 
   Widget categoryItemCard() {
-    var filterData = itemsData.where((e) => e.catId == selectCat);
-    var allData = selectCat == '' ? itemsData : filterData;
+    var filterData = _foundUser.where((e) => e.catId == selectCat);
+    var allData = selectCat == '' ? _foundUser : filterData;
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 24,

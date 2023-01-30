@@ -5,7 +5,7 @@ import '../currency_format.dart';
 import '../datas/categories_data.dart';
 
 // ignore: must_be_immutable
-class CategoryItemCard extends StatelessWidget {
+class CategoryItemCard extends StatefulWidget {
   final String id;
   final String title;
   final String desc;
@@ -25,9 +25,14 @@ class CategoryItemCard extends StatelessWidget {
   });
 
   @override
+  State<CategoryItemCard> createState() => _CategoryItemCardState();
+}
+
+class _CategoryItemCardState extends State<CategoryItemCard> {
+  @override
   Widget build(BuildContext context) {
     final catTitle =
-        categoriesData.firstWhere((element) => element.id == catId);
+        categoriesData.firstWhere((element) => element.id == widget.catId);
     return Container(
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.only(bottom: 12),
@@ -43,33 +48,43 @@ class CategoryItemCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                ),
-                height: constraints.maxHeight * 1 - 12,
-                width: constraints.maxHeight * 1 - 12,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                    image: AssetImage(img[0]),
-                    fit: BoxFit.fill,
+              GestureDetector(
+                onDoubleTap: () {
+                  setState(() {
+                    widget.isFavorite == true
+                        ? widget.isFavorite = false
+                        : widget.isFavorite = true;
+                  });
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    top: 10,
                   ),
-                ),
-                child: Stack(
-                  children: [
-                    Container(
-                      width: constraints.maxWidth * 0.15,
-                      height: constraints.maxHeight * 0.15,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: isFavorite == true ? redColor : greyColor,
-                        image: const DecorationImage(
-                          image: AssetImage('assets/love_icon.png'),
+                  height: constraints.maxHeight * 1 - 12,
+                  width: constraints.maxHeight * 1 - 12,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    image: DecorationImage(
+                      image: AssetImage(widget.img[0]),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: constraints.maxWidth * 0.15,
+                        height: constraints.maxHeight * 0.15,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              widget.isFavorite == true ? redColor : greyColor,
+                          image: const DecorationImage(
+                            image: AssetImage('assets/love_icon.png'),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -85,11 +100,11 @@ class CategoryItemCard extends StatelessWidget {
                       style: descTextStyle,
                     ),
                     Text(
-                      title,
+                      widget.title,
                       style: titleTextStyle,
                     ),
                     Text(
-                      desc,
+                      widget.desc,
                       style: descTextStyle,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -102,7 +117,7 @@ class CategoryItemCard extends StatelessWidget {
                       children: [
                         Text(
                           CurrencyFormat.convertToIdr(
-                            price,
+                            widget.price,
                             0,
                           ),
                           style: titleTextStyle.copyWith(
