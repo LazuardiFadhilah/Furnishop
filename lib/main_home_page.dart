@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnishop/screens/explore_screen.dart';
 import 'package:furnishop/screens/home_screen.dart';
+import 'package:furnishop/screens/wishlist_screen.dart';
 import 'package:furnishop/styles.dart';
 
 class MainHomePage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _MainHomePageState extends State<MainHomePage> {
   final List<Widget> _tabList = [
     const HomeScreen(),
     const ExploreScreen(),
-    const HomeScreen(),
+    const WishlistScreen(),
     const HomeScreen(),
   ];
   @override

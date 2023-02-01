@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnishop/main_home_page.dart';
 import 'package:furnishop/screens/explore_screen.dart';
+import 'package:furnishop/screens/wishlist_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const MainHomePage(),
         ExploreScreen.routeName: (context) => const ExploreScreen(),
+        WishlistScreen.routeName: (context) => const WishlistScreen(),
       },
     );
   }
