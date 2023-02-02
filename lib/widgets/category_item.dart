@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furnishop/datas/items_data.dart';
 import 'package:furnishop/styles.dart';
 
 import '../currency_format.dart';
@@ -6,6 +7,8 @@ import '../datas/categories_data.dart';
 
 // ignore: must_be_immutable
 class CategoryItemCard extends StatefulWidget {
+  final VoidCallback onFavoriteSelected;
+
   final String id;
   final String title;
   final String desc;
@@ -15,6 +18,7 @@ class CategoryItemCard extends StatefulWidget {
   bool isFavorite = false;
   CategoryItemCard({
     super.key,
+    required this.onFavoriteSelected,
     required this.id,
     required this.title,
     required this.desc,
@@ -51,9 +55,10 @@ class _CategoryItemCardState extends State<CategoryItemCard> {
               GestureDetector(
                 onDoubleTap: () {
                   setState(() {
-                    widget.isFavorite == true
-                        ? widget.isFavorite = false
-                        : widget.isFavorite = true;
+                    widget.onFavoriteSelected();
+
+                    // ignore: avoid_print
+                    print(itemsData.where((e) => e.isFavorite == true).length);
                   });
                 },
                 child: Container(

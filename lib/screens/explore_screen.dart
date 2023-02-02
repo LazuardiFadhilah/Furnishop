@@ -196,6 +196,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
         children: allData
             .map(
               (fltData) => CategoryItemCard(
+                onFavoriteSelected: () {
+                  setState(
+                    () {
+                      if (fltData.isFavorite == false) {
+                        fltData.isFavorite = true;
+                      } else {
+                        fltData.isFavorite = false;
+                      }
+                    },
+                  );
+                },
                 id: fltData.id,
                 catId: fltData.catId,
                 desc: fltData.desc,

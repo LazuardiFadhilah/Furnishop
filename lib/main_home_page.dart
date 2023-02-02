@@ -16,7 +16,7 @@ class _MainHomePageState extends State<MainHomePage> {
   final List<Widget> _tabList = [
     const HomeScreen(),
     const ExploreScreen(),
-    const WishlistScreen(),
+    WishlistScreen(),
     const HomeScreen(),
   ];
   @override

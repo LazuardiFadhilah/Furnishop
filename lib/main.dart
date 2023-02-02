@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const MainHomePage(),
         ExploreScreen.routeName: (context) => const ExploreScreen(),
-        WishlistScreen.routeName: (context) => const WishlistScreen(),
+        WishlistScreen.routeName: (context) => WishlistScreen(),
       },
     );
   }

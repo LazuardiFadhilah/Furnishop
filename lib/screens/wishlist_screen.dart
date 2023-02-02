@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:furnishop/datas/items_data.dart';
 import 'package:furnishop/styles.dart';
+import 'package:furnishop/widgets/empty_favorite_items.dart';
+import 'package:furnishop/widgets/favorite_items.dart';
 
 class WishlistScreen extends StatelessWidget {
   static const routeName = '/wishlist';
-  const WishlistScreen({Key? key}) : super(key: key);
+  final filterData = itemsData.where(
+    (element) => element.isFavorite == true,
+  );
+
+  WishlistScreen({Key? key}) : super(key: key);
 
   Widget header(context) {
     return Container(
@@ -32,16 +39,38 @@ class WishlistScreen extends StatelessWidget {
     );
   }
 
+  Widget wishlistItem() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        children: [
+          ...filterData.map(
+            (e) => FavoriteItems(
+              id: e.id,
+              title: e.title,
+              catTitle: e.catId,
+              price: e.price,
+              img: e.img,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
         top: true,
-        child: Column(
-          children: [
-            header(context),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              header(context),
+              filterData.isEmpty ? const EmptyFav() : wishlistItem(),
+            ],
+          ),
         ),
       ),
     );
