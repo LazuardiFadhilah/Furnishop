@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnishop/screens/explore_screen.dart';
 import 'package:furnishop/screens/home_screen.dart';
+import 'package:furnishop/screens/user_screen.dart';
 import 'package:furnishop/screens/wishlist_screen.dart';
 import 'package:furnishop/styles.dart';
 
@@ -17,7 +18,7 @@ class _MainHomePageState extends State<MainHomePage> {
     const HomeScreen(),
     const ExploreScreen(),
     WishlistScreen(),
-    const HomeScreen(),
+    const UsersScreen(),
   ];
   @override
   Widget build(BuildContext context) {
