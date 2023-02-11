@@ -7,6 +7,7 @@ const Color orangeColor = Color(0xffEB7430);
 const Color blackColor = Color(0xff1C1C27);
 const Color redColor = Color(0xffFF6363);
 const Color greyColor = Color(0xffA2A2A2);
+const Color lightBlue = Color(0xff00AED6);
 Color lightOrangeColor = orangeColor.withOpacity(0.1);
 
 FontWeight thin = FontWeight.w100;

@@ -9,7 +9,7 @@ import '../widgets/categories_card.dart';
 import '../widgets/category_item.dart';
 
 class ExploreScreen extends StatefulWidget {
-  static const routeName = '/explore-screen';
+  static const routeName = '/explore';
   const ExploreScreen({Key? key}) : super(key: key);
 
   @override

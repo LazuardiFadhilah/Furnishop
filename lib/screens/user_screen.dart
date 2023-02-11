@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furnishop/screens/payment_screen.dart';
 import 'package:furnishop/styles.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -127,45 +128,53 @@ class UsersScreen extends StatelessWidget {
         const SizedBox(
           height: 12,
         ),
-        Container(
-          padding: const EdgeInsets.all(12),
-          width: MediaQuery.of(context).size.width * 1 - 48,
-          height: MediaQuery.of(context).size.height * 0.07,
-          decoration: BoxDecoration(
-            color: whiteColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return Row(
-                children: [
-                  Container(
-                    height: constraints.maxHeight * 1,
-                    width: constraints.maxHeight * 1,
-                    decoration: BoxDecoration(
-                      color: lightOrangeColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(
-                      Icons.payment,
-                      color: orangeColor,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Payment Method',
-                      style: pagingTextStyle.copyWith(
-                        color: blackColor,
-                        fontSize: 14,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              PaymentScreen.routeName,
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            width: MediaQuery.of(context).size.width * 1 - 48,
+            height: MediaQuery.of(context).size.height * 0.07,
+            decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Row(
+                  children: [
+                    Container(
+                      height: constraints.maxHeight * 1,
+                      width: constraints.maxHeight * 1,
+                      decoration: BoxDecoration(
+                        color: lightOrangeColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.payment,
+                        color: orangeColor,
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Payment Method',
+                        style: pagingTextStyle.copyWith(
+                          color: blackColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
         const SizedBox(
