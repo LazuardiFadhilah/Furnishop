@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnishop/currency_format.dart';
 import 'package:furnishop/datas/categories_data.dart';
+import 'package:furnishop/screens/details_sreen.dart';
 import 'package:furnishop/styles.dart';
 
 // ignore: must_be_immutable
@@ -50,6 +51,20 @@ class _ArrivalItemsState extends State<ArrivalItems> {
             color: whiteColor,
           ),
           child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                DetailsProduct.routeName,
+                arguments: {
+                  'id': widget.id,
+                  'title': widget.title,
+                  'desc': widget.desc,
+                  'price': widget.price,
+                  'catId': widget.catId,
+                  'img': widget.img,
+                  'isFav': widget.isFavorite,
+                },
+              );
+            },
             onDoubleTap: (() {
               widget.onFavoriteSelected();
             }),

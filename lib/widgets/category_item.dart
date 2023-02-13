@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnishop/datas/items_data.dart';
+import 'package:furnishop/screens/details_sreen.dart';
 import 'package:furnishop/styles.dart';
 
 import '../currency_format.dart';
@@ -53,6 +54,20 @@ class _CategoryItemCardState extends State<CategoryItemCard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    DetailsProduct.routeName,
+                    arguments: {
+                      'id': widget.id,
+                      'title': widget.title,
+                      'desc': widget.desc,
+                      'price': widget.price,
+                      'catId': widget.catId,
+                      'img': widget.img,
+                      'isFav': widget.isFavorite,
+                    },
+                  );
+                },
                 onDoubleTap: () {
                   setState(() {
                     widget.onFavoriteSelected();

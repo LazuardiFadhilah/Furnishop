@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnishop/main_home_page.dart';
+import 'package:furnishop/screens/details_sreen.dart';
 import 'package:furnishop/screens/explore_screen.dart';
 import 'package:furnishop/screens/payment_screen.dart';
 import 'package:furnishop/screens/user_screen.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         WishlistScreen.routeName: (context) => WishlistScreen(),
         UsersScreen.routeName: (context) => const UsersScreen(),
         PaymentScreen.routeName: (context) => const PaymentScreen(),
+        DetailsProduct.routeName: (context) => const DetailsProduct(),
       },
     );
   }
