@@ -15,13 +15,14 @@ class DetailsProduct extends StatefulWidget {
 }
 
 class _DetailsProductState extends State<DetailsProduct> {
+  var index = 0;
   @override
   Widget build(BuildContext context) {
-    var index = 0;
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final titleItem = routeArgs['title'];
     final priceItem = routeArgs['price'];
+    // ignore: unused_local_variable
     final descItem = routeArgs['desc'];
     final imgItem = routeArgs['img'];
     final isFavItem = routeArgs['isFav'];
@@ -35,7 +36,8 @@ class _DetailsProductState extends State<DetailsProduct> {
               onTap: () {
                 setState(() {
                   index = i;
-                  print(index);
+                  // ignore: avoid_print
+                  print(widget);
                 });
               },
               child: Container(
