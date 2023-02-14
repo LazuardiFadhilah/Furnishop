@@ -17,6 +17,39 @@ class DetailsProduct extends StatefulWidget {
 
 class _DetailsProductState extends State<DetailsProduct> {
   var index = 0;
+
+  Widget measurementContent({required String title, required String range}) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            style: descTextStyle.copyWith(
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            ':',
+            style: descTextStyle.copyWith(
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            ' $range cm',
+            textAlign: TextAlign.end,
+            style: titleTextStyle.copyWith(
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final routeArgs =
@@ -290,6 +323,7 @@ class _DetailsProductState extends State<DetailsProduct> {
                       Padding(
                         padding: const EdgeInsets.all(24),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Measurement',
@@ -297,7 +331,42 @@ class _DetailsProductState extends State<DetailsProduct> {
                                 fontSize: 14,
                                 color: blackColor,
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            measurementContent(title: 'Wide', range: '204'),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            measurementContent(title: 'Depth', range: '89'),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            measurementContent(title: 'Tall', range: '78'),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            measurementContent(
+                                title: 'Armrest Height', range: '64'),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            measurementContent(
+                                title: 'Seat Width', range: '180'),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            measurementContent(
+                                title: 'Seat Depth', range: '61'),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            measurementContent(
+                                title: 'Seat Height', range: '44'),
+                            const SizedBox(
+                              height: 6,
+                            ),
                           ],
                         ),
                       ),
@@ -305,11 +374,66 @@ class _DetailsProductState extends State<DetailsProduct> {
                     ],
                   ),
                 ),
-
                 // end of content
               ],
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.only(
+          left: 24,
+          right: 24,
+          top: 24,
+          bottom: 34,
+        ),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.11,
+        color: whiteColor,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  height: constraints.maxHeight,
+                  width: constraints.maxWidth * 0.4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: orangeColor,
+                    ),
+                  ),
+                  child: Text(
+                    'Buy Now',
+                    style: pagingTextStyle.copyWith(
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  height: constraints.maxHeight,
+                  width: constraints.maxWidth * 0.4,
+                  decoration: BoxDecoration(
+                    color: orangeColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '+ Add to Cart',
+                    style: pagingTextStyle.copyWith(
+                      fontSize: 14,
+                      color: whiteColor,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
