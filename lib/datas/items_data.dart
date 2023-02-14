@@ -12,6 +12,7 @@ List<Items> itemsData = [
       'assets/product_1.png',
       'assets/product_1.png',
       'assets/product_1.png',
+      'assets/product_2.png',
     ],
     isFavorite: true,
   ),

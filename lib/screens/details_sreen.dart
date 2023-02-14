@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnishop/styles.dart';
+import 'package:readmore/readmore.dart';
 
 import '../currency_format.dart';
 
@@ -41,8 +42,8 @@ class _DetailsProductState extends State<DetailsProduct> {
                 });
               },
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.1,
-                height: MediaQuery.of(context).size.width * 0.1,
+                width: MediaQuery.of(context).size.width * 0.15,
+                height: MediaQuery.of(context).size.width * 0.15,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
@@ -132,11 +133,11 @@ class _DetailsProductState extends State<DetailsProduct> {
                         children: [
                           Container(
                             width: constraints.maxWidth,
-                            height: constraints.maxHeight * 0.7,
+                            height: constraints.maxHeight * 0.65,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
                               image: DecorationImage(
-                                image: AssetImage('${imgItem[0]}'),
+                                image: AssetImage('${imgItem[index]}'),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -195,6 +196,117 @@ class _DetailsProductState extends State<DetailsProduct> {
                   ),
                 ),
                 // End Item Picture
+                const SizedBox(
+                  height: 24,
+                ),
+
+                // Content
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: whiteColor,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Header Content
+                      Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width * 0.37,
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              decoration: BoxDecoration(
+                                color: lightOrangeColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                'Details Product',
+                                style: pagingTextStyle,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width * 0.37,
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              decoration: BoxDecoration(
+                                color: whiteColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                'Product Reviews',
+                                style: pagingTextStyle.copyWith(
+                                  color: blackColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // End of Header Content
+
+                      // Description Content
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Description',
+                              style: pagingTextStyle.copyWith(
+                                color: blackColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            ReadMoreText(
+                              '$descItem',
+                              textAlign: TextAlign.justify,
+                              trimLines: 2,
+                              style: descTextStyle.copyWith(
+                                fontSize: 12,
+                              ),
+                              trimMode: TrimMode.Line,
+                              colorClickableText: orangeColor,
+                              trimCollapsedText: 'Read More',
+                              trimExpandedText: '  Show Less',
+                              moreStyle: descTextStyle.copyWith(
+                                fontSize: 12,
+                                color: orangeColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // End of Description Content
+
+                      // Measurement Content
+                      Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Measurement',
+                              style: pagingTextStyle.copyWith(
+                                fontSize: 14,
+                                color: blackColor,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      // end of measurement content
+                    ],
+                  ),
+                ),
+
+                // end of content
               ],
             ),
           ),
