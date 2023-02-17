@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:furnishop/datas/items_data.dart';
 import 'package:furnishop/styles.dart';
 import 'package:readmore/readmore.dart';
 
 import '../currency_format.dart';
+import '../widgets/familiar_product_items.dart';
 
 class DetailsProduct extends StatefulWidget {
   static const routeName = '/details-product';
@@ -56,10 +58,13 @@ class _DetailsProductState extends State<DetailsProduct> {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final titleItem = routeArgs['title'];
     final priceItem = routeArgs['price'];
-    // ignore: unused_local_variable
     final descItem = routeArgs['desc'];
     final imgItem = routeArgs['img'];
     final isFavItem = routeArgs['isFav'];
+    final idItem = routeArgs['catId'];
+
+    var filterData =
+        itemsData.where((element) => element.catId == idItem).toList();
 
     List<Widget> imgRow = [];
     for (var i = 0; i < imgItem.length; i++) {
@@ -371,6 +376,33 @@ class _DetailsProductState extends State<DetailsProduct> {
                         ),
                       ),
                       // end of measurement content
+
+                      // Familiar Product
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          'Familiar Product',
+                          style: pagingTextStyle.copyWith(
+                            fontSize: 14,
+                            color: blackColor,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 24, right: 24, top: 12, bottom: 24),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: filterData
+                                .map((e) => FamiliarProductItems(
+                                      img: e.img[0],
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      // end of Familiar Product
                     ],
                   ),
                 ),
