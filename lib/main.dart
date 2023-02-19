@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         WishlistScreen.routeName: (context) => WishlistScreen(),
         UsersScreen.routeName: (context) => const UsersScreen(),
         PaymentScreen.routeName: (context) => const PaymentScreen(),
-        DetailsProduct.routeName: (context) => const DetailsProduct(),
+        DetailsProduct.routeName: (context) => DetailsProduct(),
       },
     );
   }

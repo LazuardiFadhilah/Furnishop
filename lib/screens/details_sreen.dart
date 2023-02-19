@@ -6,10 +6,12 @@ import 'package:readmore/readmore.dart';
 import '../currency_format.dart';
 import '../widgets/familiar_product_items.dart';
 
+// ignore: must_be_immutable
 class DetailsProduct extends StatefulWidget {
   static const routeName = '/details-product';
+  bool dProduct = false;
 
-  const DetailsProduct({
+  DetailsProduct({
     super.key,
   });
 
@@ -21,34 +23,363 @@ class _DetailsProductState extends State<DetailsProduct> {
   var index = 0;
 
   Widget measurementContent({required String title, required String range}) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            title,
-            style: descTextStyle.copyWith(
-              fontSize: 12,
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: descTextStyle.copyWith(
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  ':',
+                  style: descTextStyle.copyWith(
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  ' $range cm',
+                  textAlign: TextAlign.end,
+                  style: titleTextStyle.copyWith(
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        Expanded(
-          child: Text(
-            ':',
-            style: descTextStyle.copyWith(
-              fontSize: 12,
-            ),
+        ],
+      ),
+    );
+  }
+
+  Widget productReview() {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        children: [
+          // Header Content
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    widget.dProduct = true;
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width * 0.37,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  decoration: BoxDecoration(
+                    color: whiteColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    'Details Product',
+                    style: pagingTextStyle.copyWith(
+                      color: blackColor,
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    widget.dProduct = false;
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width * 0.37,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  decoration: BoxDecoration(
+                    color: lightOrangeColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    'Product Reviews',
+                    style: pagingTextStyle,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        Expanded(
-          child: Text(
-            ' $range cm',
-            textAlign: TextAlign.end,
-            style: titleTextStyle.copyWith(
-              fontSize: 12,
-            ),
+          // End of header content
+          const SizedBox(
+            height: 24,
           ),
-        ),
-      ],
+          // Rating and Reviews
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Rating & Reviews',
+                style: pagingTextStyle.copyWith(
+                  color: blackColor,
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                'See all',
+                style: pagingTextStyle,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '4.9',
+                      style: titlePageTextStyle.copyWith(
+                        color: orangeColor,
+                        fontSize: 48,
+                      ),
+                    ),
+                    Text(
+                      'Out of 5',
+                      style: titlePageTextStyle.copyWith(
+                        color: orangeColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.01,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: lightOrangeColor,
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.19,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: orangeColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.01,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: lightOrangeColor,
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.10,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: orangeColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.01,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: lightOrangeColor,
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.05,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: orangeColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.01,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: lightOrangeColor,
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.02,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: orangeColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.01,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: lightOrangeColor,
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.03,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: orangeColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+            ],
+          ),
+          // End of rating reviews
+        ],
+      ),
     );
   }
 
@@ -102,6 +433,7 @@ class _DetailsProductState extends State<DetailsProduct> {
         ),
       );
     }
+
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
@@ -156,6 +488,7 @@ class _DetailsProductState extends State<DetailsProduct> {
                   height: 24,
                 ),
                 // Item Picture
+
                 Container(
                   padding: const EdgeInsets.all(12),
                   width: MediaQuery.of(context).size.width * 1,
@@ -233,6 +566,7 @@ class _DetailsProductState extends State<DetailsProduct> {
                     },
                   ),
                 ),
+
                 // End Item Picture
                 const SizedBox(
                   height: 24,
@@ -245,166 +579,202 @@ class _DetailsProductState extends State<DetailsProduct> {
                     borderRadius: BorderRadius.circular(12),
                     color: whiteColor,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Header Content
-                      Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: widget.dProduct == true
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width * 0.37,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              decoration: BoxDecoration(
-                                color: lightOrangeColor,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                'Details Product',
-                                style: pagingTextStyle,
+                            // Header Content
+                            Padding(
+                              padding: const EdgeInsets.all(24.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        widget.dProduct = true;
+                                      });
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.37,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      decoration: BoxDecoration(
+                                        color: lightOrangeColor,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Text(
+                                        'Details Product',
+                                        style: pagingTextStyle,
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        widget.dProduct = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.37,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      decoration: BoxDecoration(
+                                        color: whiteColor,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Text(
+                                        'Product Reviews',
+                                        style: pagingTextStyle.copyWith(
+                                          color: blackColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width * 0.37,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              decoration: BoxDecoration(
-                                color: whiteColor,
-                                borderRadius: BorderRadius.circular(12),
+                            // End of Header Content
+
+                            // Description Content
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Description',
+                                    style: pagingTextStyle.copyWith(
+                                      color: blackColor,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  ReadMoreText(
+                                    '$descItem',
+                                    textAlign: TextAlign.justify,
+                                    trimLines: 2,
+                                    style: descTextStyle.copyWith(
+                                      fontSize: 12,
+                                    ),
+                                    trimMode: TrimMode.Line,
+                                    colorClickableText: orangeColor,
+                                    trimCollapsedText: 'Read More',
+                                    trimExpandedText: '  Show Less',
+                                    moreStyle: descTextStyle.copyWith(
+                                      fontSize: 12,
+                                      color: orangeColor,
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ),
+                            // End of Description Content
+
+                            // Measurement Content
+                            Padding(
+                              padding: const EdgeInsets.all(24),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Measurement',
+                                    style: pagingTextStyle.copyWith(
+                                      fontSize: 14,
+                                      color: blackColor,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  measurementContent(
+                                      title: 'Wide', range: '204'),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  measurementContent(
+                                      title: 'Depth', range: '89'),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  measurementContent(
+                                      title: 'Tall', range: '78'),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  measurementContent(
+                                      title: 'Armrest Height', range: '64'),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  measurementContent(
+                                      title: 'Seat Width', range: '180'),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  measurementContent(
+                                      title: 'Seat Depth', range: '61'),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  measurementContent(
+                                      title: 'Seat Height', range: '44'),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // end of measurement content
+
+                            // Familiar Product
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24),
                               child: Text(
-                                'Product Reviews',
+                                'Familiar Product',
                                 style: pagingTextStyle.copyWith(
+                                  fontSize: 14,
                                   color: blackColor,
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 24, right: 24, top: 12, bottom: 24),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: filterData
+                                      .map(
+                                        (e) => FamiliarProductItems(
+                                          id: e.id,
+                                          title: e.title,
+                                          desc: e.desc,
+                                          price: e.price,
+                                          catId: e.catId,
+                                          img: e.img,
+                                          isFavorite: e.isFavorite,
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
+                              ),
+                            ),
+                            // end of Familiar Product
                           ],
-                        ),
-                      ),
-                      // End of Header Content
-
-                      // Description Content
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Description',
-                              style: pagingTextStyle.copyWith(
-                                color: blackColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            ReadMoreText(
-                              '$descItem',
-                              textAlign: TextAlign.justify,
-                              trimLines: 2,
-                              style: descTextStyle.copyWith(
-                                fontSize: 12,
-                              ),
-                              trimMode: TrimMode.Line,
-                              colorClickableText: orangeColor,
-                              trimCollapsedText: 'Read More',
-                              trimExpandedText: '  Show Less',
-                              moreStyle: descTextStyle.copyWith(
-                                fontSize: 12,
-                                color: orangeColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // End of Description Content
-
-                      // Measurement Content
-                      Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Measurement',
-                              style: pagingTextStyle.copyWith(
-                                fontSize: 14,
-                                color: blackColor,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            measurementContent(title: 'Wide', range: '204'),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            measurementContent(title: 'Depth', range: '89'),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            measurementContent(title: 'Tall', range: '78'),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            measurementContent(
-                                title: 'Armrest Height', range: '64'),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            measurementContent(
-                                title: 'Seat Width', range: '180'),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            measurementContent(
-                                title: 'Seat Depth', range: '61'),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            measurementContent(
-                                title: 'Seat Height', range: '44'),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                          ],
-                        ),
-                      ),
-                      // end of measurement content
-
-                      // Familiar Product
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Text(
-                          'Familiar Product',
-                          style: pagingTextStyle.copyWith(
-                            fontSize: 14,
-                            color: blackColor,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 24, right: 24, top: 12, bottom: 24),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: filterData
-                                .map((e) => FamiliarProductItems(
-                                      img: e.img[0],
-                                    ))
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      // end of Familiar Product
-                    ],
-                  ),
+                        )
+                      : productReview(),
                 ),
                 // end of content
               ],
