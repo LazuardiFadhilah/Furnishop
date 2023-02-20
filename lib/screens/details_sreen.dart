@@ -61,6 +61,111 @@ class _DetailsProductState extends State<DetailsProduct> {
     );
   }
 
+  Widget reviews() {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.15,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: greyColor,
+              width: 0.5,
+            ),
+          ),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: constraints.maxWidth * 0.1,
+                        height: constraints.maxWidth * 0.1,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage('assets/users.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Lazuardi Fadhilah',
+                          style: pagingTextStyle.copyWith(
+                            color: blackColor,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        '1 Month Ago',
+                        style: descTextStyle.copyWith(
+                          fontSize: 8,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 15,
+                      ),
+                      Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 15,
+                      ),
+                      Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 15,
+                      ),
+                      Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 15,
+                      ),
+                      Icon(
+                        Icons.star_rounded,
+                        color: orangeColor,
+                        size: 15,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Expanded(
+                    child: Text(
+                      '“the product is very good and comfortable. especially the color I really like. delivery is fast”',
+                      style: descTextStyle,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+      ],
+    );
+  }
+
   Widget productReview() {
     return Padding(
       padding: const EdgeInsets.all(24.0),
@@ -378,6 +483,15 @@ class _DetailsProductState extends State<DetailsProduct> {
             ],
           ),
           // End of rating reviews
+          const SizedBox(
+            height: 26,
+          ),
+          // Reviews from Users
+          reviews(),
+          reviews(),
+          reviews(),
+          reviews(),
+          // End Reviews from Users
         ],
       ),
     );

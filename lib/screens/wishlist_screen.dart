@@ -49,6 +49,7 @@ class WishlistScreen extends StatelessWidget {
               id: e.id,
               title: e.title,
               catTitle: e.catId,
+              desc: e.desc,
               price: e.price,
               img: e.img,
             ),
