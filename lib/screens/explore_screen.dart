@@ -7,6 +7,7 @@ import 'package:furnishop/styles.dart';
 import '../datas/items_data.dart';
 import '../widgets/categories_card.dart';
 import '../widgets/category_item.dart';
+import 'cart_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   static const routeName = '/explore';
@@ -56,15 +57,20 @@ class _ExploreScreenState extends State<ExploreScreen> {
               fontSize: 18,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: whiteColor,
-              borderRadius: BorderRadius.circular(12),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, CartScreen.routeName);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Image.asset('assets/empty_cart_icon.png'),
             ),
-            child: Image.asset('assets/empty_cart_icon.png'),
           ),
         ],
       ),

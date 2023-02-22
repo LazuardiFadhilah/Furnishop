@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnishop/datas/items_data.dart';
+import 'package:furnishop/screens/cart_screen.dart';
 import 'package:furnishop/styles.dart';
 import 'package:readmore/readmore.dart';
 
@@ -585,15 +586,20 @@ class _DetailsProductState extends State<DetailsProduct> {
                         fontSize: 18,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.circular(12),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, CartScreen.routeName);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Image.asset('assets/empty_cart_icon.png'),
                       ),
-                      child: Image.asset('assets/empty_cart_icon.png'),
                     ),
                   ],
                 ),

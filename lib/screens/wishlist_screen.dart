@@ -4,6 +4,8 @@ import 'package:furnishop/styles.dart';
 import 'package:furnishop/widgets/empty_favorite_items.dart';
 import 'package:furnishop/widgets/favorite_items.dart';
 
+import 'cart_screen.dart';
+
 class WishlistScreen extends StatelessWidget {
   static const routeName = '/wishlist';
   final filterData = itemsData.where(
@@ -24,15 +26,20 @@ class WishlistScreen extends StatelessWidget {
               fontSize: 18,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: whiteColor,
-              borderRadius: BorderRadius.circular(12),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, CartScreen.routeName);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Image.asset('assets/empty_cart_icon.png'),
             ),
-            child: Image.asset('assets/empty_cart_icon.png'),
           ),
         ],
       ),
