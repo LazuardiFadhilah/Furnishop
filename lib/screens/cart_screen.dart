@@ -110,106 +110,109 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget footer(context, int price) {
-    return Container(
-      color: whiteColor,
-      height: MediaQuery.of(context).size.height * 0.2,
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(24),
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Column(
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                width: constraints.maxWidth,
-                height: constraints.maxHeight * 0.35,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(
-                    color: greyColor.withOpacity(0.5),
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Container(
+        color: whiteColor,
+        height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.all(24),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Column(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  width: constraints.maxWidth,
+                  height: constraints.maxHeight * 0.35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(
+                      color: greyColor.withOpacity(0.5),
+                    ),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/discount_icon.png',
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        style: buttonTextStyle.copyWith(
-                          fontSize: 12,
-                          color: blackColor,
-                        ),
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Use discount coupons to save',
-                          hintStyle: descTextStyle.copyWith(
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/discount_icon.png',
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          style: buttonTextStyle.copyWith(
                             fontSize: 12,
+                            color: blackColor,
+                          ),
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'Use discount coupons to save',
+                            hintStyle: descTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                       ),
+                      const Icon(
+                        Icons.navigate_next_rounded,
+                        color: greyColor,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Subtotal',
+                            style: descTextStyle.copyWith(
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            price == 0
+                                ? 'Rp -'
+                                : CurrencyFormat.convertToIdr(
+                                    price,
+                                    0,
+                                  ),
+                            style: titleTextStyle.copyWith(
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    const Icon(
-                      Icons.navigate_next_rounded,
-                      color: greyColor,
+                    Expanded(
+                      child: Container(
+                        height: constraints.maxHeight * 0.4,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: lightOrangeColor,
+                        ),
+                        child: Text(
+                          'Pay Now',
+                          style: titleTextStyle.copyWith(
+                            fontSize: 16,
+                            color: whiteColor,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Subtotal',
-                          style: descTextStyle.copyWith(
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          price == 0
-                              ? 'Rp -'
-                              : CurrencyFormat.convertToIdr(
-                                  price,
-                                  0,
-                                ),
-                          style: titleTextStyle.copyWith(
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: constraints.maxHeight * 0.4,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: lightOrangeColor,
-                      ),
-                      child: Text(
-                        'Pay Now',
-                        style: titleTextStyle.copyWith(
-                          fontSize: 16,
-                          color: whiteColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -222,11 +225,13 @@ class _CartScreenState extends State<CartScreen> {
       bottomNavigationBar: footer(context, price),
       body: SafeArea(
         top: true,
-        child: Column(
-          children: [
-            header(context),
-            emptyCart(context),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              header(context),
+              emptyCart(context),
+            ],
+          ),
         ),
       ),
     );
