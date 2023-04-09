@@ -1,8 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:furnishop/currency_format.dart';
+import 'package:furnishop/datas/cart_data.dart';
 import 'package:furnishop/datas/categories_data.dart';
 import 'package:furnishop/screens/details_sreen.dart';
 import 'package:furnishop/styles.dart';
+
+import '../models/cart.dart';
 
 // ignore: must_be_immutable
 class ArrivalItems extends StatefulWidget {
@@ -34,6 +39,20 @@ class ArrivalItems extends StatefulWidget {
 
 class _ArrivalItemsState extends State<ArrivalItems> {
   int decimalDigit = 0;
+
+  void _addCartData(String txId, int txQty) {
+    final newCart = Cart(
+      id: txId,
+      qty: txQty,
+      isSelected: false,
+    );
+
+    setState(() {
+      cartData.add(newCart);
+    });
+
+    print(cartData);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +148,19 @@ class _ArrivalItemsState extends State<ArrivalItems> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            var currentIndex = cartData.indexWhere(
+                                (element) => element.id == widget.id);
+
+                            if (currentIndex == -1) {
+                              _addCartData(widget.id, 1);
+                            } else {
+                              if (widget.id == cartData[currentIndex].id) {
+                                cartData[currentIndex].qty++;
+                                print(cartData[currentIndex].qty);
+                              }
+                            }
+                          },
                           child: Container(
                             width: constraints.maxHeight * 0.1,
                             height: constraints.maxHeight * 0.1,

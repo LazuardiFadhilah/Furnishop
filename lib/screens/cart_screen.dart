@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furnishop/datas/cart_data.dart';
 import 'package:furnishop/main_home_page.dart';
 import 'package:furnishop/styles.dart';
 
@@ -229,7 +230,7 @@ class _CartScreenState extends State<CartScreen> {
           child: Column(
             children: [
               header(context),
-              emptyCart(context),
+              cartData.isNotEmpty ? const SizedBox() : emptyCart(context),
             ],
           ),
         ),

@@ -1,11 +1,11 @@
 class Cart {
   final String id;
-  final String price;
-  final String qty;
+  int qty;
+  bool isSelected = false;
 
   Cart({
     required this.id,
-    required this.price,
     required this.qty,
+    required this.isSelected,
   });
 }
