@@ -7,13 +7,17 @@ import '../currency_format.dart';
 
 class CartScreen extends StatefulWidget {
   static const routeName = '/cart';
-  const CartScreen({Key? key}) : super(key: key);
+  const CartScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
+  int selectAll = 0;
+
   Widget header(context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -107,6 +111,69 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget hasDataCart() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      width: MediaQuery.of(context).size.width - 48,
+      decoration: BoxDecoration(
+        color: whiteColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectAll == 0 ? selectAll = 1 : selectAll = 0;
+                  });
+                },
+                child: Container(
+                  width: 18,
+                  height: 18,
+                  decoration: BoxDecoration(
+                    color: selectAll == 0 ? whiteColor : orangeColor,
+                    border: selectAll == 0
+                        ? Border.all(color: blackColor, width: 2)
+                        : Border.all(color: whiteColor),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: selectAll == 0
+                      ? const SizedBox()
+                      : const Icon(
+                          Icons.check,
+                          color: whiteColor,
+                          size: 10,
+                        ),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: Text(
+                  'Select all',
+                  style: pagingTextStyle.copyWith(
+                    color: blackColor,
+                  ),
+                ),
+              ),
+              Text(
+                'Delete',
+                style: pagingTextStyle.copyWith(
+                  color: redColor,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -230,7 +297,7 @@ class _CartScreenState extends State<CartScreen> {
           child: Column(
             children: [
               header(context),
-              cartData.isNotEmpty ? const SizedBox() : emptyCart(context),
+              cartData.isNotEmpty ? hasDataCart() : emptyCart(context),
             ],
           ),
         ),
