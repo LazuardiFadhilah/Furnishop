@@ -164,12 +164,14 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
               ),
-              Text(
-                'Delete',
-                style: pagingTextStyle.copyWith(
-                  color: redColor,
-                ),
-              ),
+              selectAll == 0
+                  ? const SizedBox()
+                  : Text(
+                      'Delete',
+                      style: pagingTextStyle.copyWith(
+                        color: redColor,
+                      ),
+                    ),
             ],
           ),
         ],
