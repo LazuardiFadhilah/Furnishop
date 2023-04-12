@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:furnishop/datas/cart_data.dart';
 import 'package:furnishop/main_home_page.dart';
 import 'package:furnishop/styles.dart';
+import 'package:furnishop/widgets/cart_items.dart';
 
 import '../currency_format.dart';
 
@@ -16,8 +17,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  int selectAll = 0;
-
+  var filData =
+      cartData.where((element) => element.isSelected == true).toList();
   Widget header(context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -131,20 +132,28 @@ class _CartScreenState extends State<CartScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    selectAll == 0 ? selectAll = 1 : selectAll = 0;
+                    for (var element in cartData) {
+                      if (element.isSelected == false) {
+                        element.isSelected = true;
+                      } else {
+                        element.isSelected = false;
+                      }
+                    }
                   });
+                  // ignore: avoid_print
+                  print(cartData.map((e) => e.isSelected));
                 },
                 child: Container(
                   width: 18,
                   height: 18,
                   decoration: BoxDecoration(
-                    color: selectAll == 0 ? whiteColor : orangeColor,
-                    border: selectAll == 0
+                    color: filData.isEmpty ? whiteColor : orangeColor,
+                    border: filData.isEmpty
                         ? Border.all(color: blackColor, width: 2)
                         : Border.all(color: whiteColor),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: selectAll == 0
+                  child: filData.isEmpty
                       ? const SizedBox()
                       : const Icon(
                           Icons.check,
@@ -164,7 +173,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
               ),
-              selectAll == 0
+              filData.isEmpty
                   ? const SizedBox()
                   : Text(
                       'Delete',
@@ -173,6 +182,36 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     ),
             ],
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Column(
+            children: cartData
+                .map(
+                  (e) => CartItems(
+                    delQty: () {
+                      setState(
+                        () {
+                          if (e.qty <= 1) {
+                            cartData
+                                .removeWhere((element) => element.id == e.id);
+                          } else {
+                            e.qty--;
+                          }
+                        },
+                      );
+                    },
+                    addQty: () {
+                      setState(() {
+                        e.qty++;
+                      });
+                    },
+                    id: e.id,
+                    qty: e.qty,
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),
