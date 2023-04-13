@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:furnishop/datas/cart_data.dart';
