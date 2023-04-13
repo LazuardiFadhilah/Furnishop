@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:furnishop/datas/cart_data.dart';
 import 'package:furnishop/main_home_page.dart';
@@ -17,8 +19,6 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  var filData =
-      cartData.where((element) => element.isSelected == true).toList();
   Widget header(context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -140,20 +140,28 @@ class _CartScreenState extends State<CartScreen> {
                       }
                     }
                   });
-                  // ignore: avoid_print
+
                   print(cartData.map((e) => e.isSelected));
                 },
                 child: Container(
                   width: 18,
                   height: 18,
                   decoration: BoxDecoration(
-                    color: filData.isEmpty ? whiteColor : orangeColor,
-                    border: filData.isEmpty
+                    color: cartData
+                            .where((element) => element.isSelected == true)
+                            .isEmpty
+                        ? whiteColor
+                        : orangeColor,
+                    border: cartData
+                            .where((element) => element.isSelected == true)
+                            .isEmpty
                         ? Border.all(color: blackColor, width: 2)
                         : Border.all(color: whiteColor),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: filData.isEmpty
+                  child: cartData
+                          .where((element) => element.isSelected == true)
+                          .isEmpty
                       ? const SizedBox()
                       : const Icon(
                           Icons.check,
@@ -173,7 +181,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
               ),
-              filData.isEmpty
+              cartData.where((element) => element.isSelected == true).isEmpty
                   ? const SizedBox()
                   : Text(
                       'Delete',
@@ -190,6 +198,16 @@ class _CartScreenState extends State<CartScreen> {
             children: cartData
                 .map(
                   (e) => CartItems(
+                    selectItem: () {
+                      setState(() {
+                        if (e.isSelected == false) {
+                          e.isSelected = true;
+                        } else {
+                          e.isSelected = false;
+                        }
+                      });
+                    },
+                    isSelected: e.isSelected,
                     delQty: () {
                       setState(
                         () {

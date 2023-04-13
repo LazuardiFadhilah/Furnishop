@@ -10,9 +10,11 @@ import '../styles.dart';
 class CartItems extends StatefulWidget {
   final String id;
   final int qty;
+  final bool isSelected;
 
   final VoidCallback addQty;
   final VoidCallback delQty;
+  final VoidCallback selectItem;
 
   const CartItems({
     super.key,
@@ -20,6 +22,8 @@ class CartItems extends StatefulWidget {
     required this.qty,
     required this.addQty,
     required this.delQty,
+    required this.selectItem,
+    required this.isSelected,
   });
 
   @override
@@ -27,8 +31,6 @@ class CartItems extends StatefulWidget {
 }
 
 class _CartItemsState extends State<CartItems> {
-  bool isSelected = false;
-
   @override
   Widget build(BuildContext context) {
     var itemData = itemsData.firstWhere(
@@ -47,21 +49,20 @@ class _CartItemsState extends State<CartItems> {
           children: [
             GestureDetector(
               onTap: () {
-                setState(() {
-                  isSelected == false ? isSelected = true : isSelected = false;
-                });
+                widget.selectItem();
+                print(cartData.map((e) => e.isSelected));
               },
               child: Container(
                 width: 18,
                 height: 18,
                 decoration: BoxDecoration(
-                  color: isSelected == false ? whiteColor : orangeColor,
-                  border: isSelected == false
+                  color: !widget.isSelected ? whiteColor : orangeColor,
+                  border: !widget.isSelected
                       ? Border.all(color: blackColor, width: 2)
                       : Border.all(color: whiteColor),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: isSelected == false
+                child: !widget.isSelected
                     ? const SizedBox()
                     : const Icon(
                         Icons.check,
