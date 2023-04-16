@@ -132,11 +132,17 @@ class _CartScreenState extends State<CartScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    for (var element in cartData) {
-                      if (element.isSelected == false) {
-                        element.isSelected = true;
-                      } else {
-                        element.isSelected = false;
+                    if (cartData
+                        .where((element) => element.isSelected == false)
+                        .isNotEmpty) {
+                      for (var i = 0; i < cartData.length; i++) {
+                        cartData[i].isSelected = true;
+                      }
+                    } else if (cartData
+                        .where((element) => element.isSelected == false)
+                        .isEmpty) {
+                      for (var i = 0; i < cartData.length; i++) {
+                        cartData[i].isSelected = false;
                       }
                     }
                   });
@@ -148,20 +154,20 @@ class _CartScreenState extends State<CartScreen> {
                   height: 18,
                   decoration: BoxDecoration(
                     color: cartData
-                            .where((element) => element.isSelected == true)
-                            .isEmpty
+                            .where((element) => element.isSelected == false)
+                            .isNotEmpty
                         ? whiteColor
                         : orangeColor,
                     border: cartData
-                            .where((element) => element.isSelected == true)
-                            .isEmpty
+                            .where((element) => element.isSelected == false)
+                            .isNotEmpty
                         ? Border.all(color: blackColor, width: 2)
                         : Border.all(color: whiteColor),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: cartData
-                          .where((element) => element.isSelected == true)
-                          .isEmpty
+                          .where((element) => element.isSelected == false)
+                          .isNotEmpty
                       ? const SizedBox()
                       : const Icon(
                           Icons.check,
@@ -181,12 +187,22 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
               ),
-              cartData.where((element) => element.isSelected == true).isEmpty
+              cartData
+                      .where((element) => element.isSelected == false)
+                      .isNotEmpty
                   ? const SizedBox()
-                  : Text(
-                      'Delete',
-                      style: pagingTextStyle.copyWith(
-                        color: redColor,
+                  : GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          cartData.removeWhere(
+                              (element) => element.isSelected == true);
+                        });
+                      },
+                      child: Text(
+                        'Delete',
+                        style: pagingTextStyle.copyWith(
+                          color: redColor,
+                        ),
                       ),
                     ),
             ],
