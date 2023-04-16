@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:furnishop/datas/cart_data.dart';
+import 'package:furnishop/datas/items_data.dart';
 import 'package:furnishop/main_home_page.dart';
 import 'package:furnishop/styles.dart';
 import 'package:furnishop/widgets/cart_items.dart';
@@ -10,6 +11,8 @@ import '../currency_format.dart';
 
 class CartScreen extends StatefulWidget {
   static const routeName = '/cart';
+  static int price = 0;
+  static List<int> subTotal = [];
   const CartScreen({
     Key? key,
   }) : super(key: key);
@@ -19,6 +22,22 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  void subtotal() {
+    var dataTrue =
+        cartData.where((element) => element.isSelected == true).toList();
+    for (var i = 0; i < dataTrue.length; i++) {
+      var filterData =
+          itemsData.firstWhere((element) => element.id == dataTrue[i].id);
+      CartScreen.subTotal.add(filterData.price * cartData[i].qty);
+    }
+
+    for (var i = 0; i < CartScreen.subTotal.length; i++) {
+      CartScreen.price += CartScreen.subTotal[i];
+    }
+    print(CartScreen.subTotal);
+    print(CartScreen.price);
+  }
+
   Widget header(context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -138,12 +157,15 @@ class _CartScreenState extends State<CartScreen> {
                       for (var i = 0; i < cartData.length; i++) {
                         cartData[i].isSelected = true;
                       }
+                      subtotal();
                     } else if (cartData
                         .where((element) => element.isSelected == false)
                         .isEmpty) {
                       for (var i = 0; i < cartData.length; i++) {
                         cartData[i].isSelected = false;
                       }
+                      CartScreen.subTotal = [];
+                      CartScreen.price = 0;
                     }
                   });
 
@@ -214,6 +236,11 @@ class _CartScreenState extends State<CartScreen> {
             children: cartData
                 .map(
                   (e) => CartItems(
+                    sumPrice: () {
+                      setState(() {
+                        subtotal();
+                      });
+                    },
                     selectItem: () {
                       setState(() {
                         if (e.isSelected == false) {
@@ -362,10 +389,9 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int price = 0;
     return Scaffold(
       backgroundColor: bgColor,
-      bottomNavigationBar: footer(context, price),
+      bottomNavigationBar: footer(context, CartScreen.price),
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
