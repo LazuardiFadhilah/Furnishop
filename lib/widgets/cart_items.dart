@@ -1,7 +1,6 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_import
 
 import 'package:flutter/material.dart';
-// ignore: unused_import
 import 'package:furnishop/datas/cart_data.dart';
 import 'package:furnishop/datas/categories_data.dart';
 import 'package:furnishop/datas/items_data.dart';
@@ -18,7 +17,7 @@ class CartItems extends StatefulWidget {
   final VoidCallback addQty;
   final VoidCallback delQty;
   final VoidCallback selectItem;
-  final VoidCallback sumPrice;
+  // final VoidCallback sumPrice;
 
   const CartItems({
     super.key,
@@ -26,7 +25,7 @@ class CartItems extends StatefulWidget {
     required this.qty,
     required this.addQty,
     required this.delQty,
-    required this.sumPrice,
+    // required this.sumPrice,
     required this.selectItem,
     required this.isSelected,
   });
@@ -55,12 +54,8 @@ class _CartItemsState extends State<CartItems> {
             GestureDetector(
               onTap: () {
                 widget.selectItem();
-                if (widget.isSelected == false) {
-                  widget.sumPrice();
-                } else {
-                  CartScreen.price = 0;
-                  CartScreen.subTotal = [];
-                }
+                // widget.sumPrice();
+
                 print(cartData.map((e) => e.isSelected));
               },
               child: Container(

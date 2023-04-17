@@ -23,11 +23,15 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   void subtotal() {
+    CartScreen.subTotal = [];
+    CartScreen.price = 0;
     var dataTrue =
         cartData.where((element) => element.isSelected == true).toList();
+
     for (var i = 0; i < dataTrue.length; i++) {
       var filterData =
           itemsData.firstWhere((element) => element.id == dataTrue[i].id);
+
       CartScreen.subTotal.add(filterData.price * cartData[i].qty);
     }
 
@@ -157,16 +161,14 @@ class _CartScreenState extends State<CartScreen> {
                       for (var i = 0; i < cartData.length; i++) {
                         cartData[i].isSelected = true;
                       }
-                      subtotal();
                     } else if (cartData
                         .where((element) => element.isSelected == false)
                         .isEmpty) {
                       for (var i = 0; i < cartData.length; i++) {
                         cartData[i].isSelected = false;
                       }
-                      CartScreen.subTotal = [];
-                      CartScreen.price = 0;
                     }
+                    subtotal();
                   });
 
                   print(cartData.map((e) => e.isSelected));
@@ -218,6 +220,7 @@ class _CartScreenState extends State<CartScreen> {
                         setState(() {
                           cartData.removeWhere(
                               (element) => element.isSelected == true);
+                          subtotal();
                         });
                       },
                       child: Text(
@@ -236,11 +239,9 @@ class _CartScreenState extends State<CartScreen> {
             children: cartData
                 .map(
                   (e) => CartItems(
-                    sumPrice: () {
-                      setState(() {
-                        subtotal();
-                      });
-                    },
+                    // sumPrice: () {
+                    //   setState(() {});
+                    // },
                     selectItem: () {
                       setState(() {
                         if (e.isSelected == false) {
@@ -248,6 +249,7 @@ class _CartScreenState extends State<CartScreen> {
                         } else {
                           e.isSelected = false;
                         }
+                        subtotal();
                       });
                     },
                     isSelected: e.isSelected,
@@ -260,12 +262,14 @@ class _CartScreenState extends State<CartScreen> {
                           } else {
                             e.qty--;
                           }
+                          subtotal();
                         },
                       );
                     },
                     addQty: () {
                       setState(() {
                         e.qty++;
+                        subtotal();
                       });
                     },
                     id: e.id,
